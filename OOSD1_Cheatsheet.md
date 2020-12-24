@@ -241,3 +241,85 @@ Primitieve datatypes zijn "bouwblokken" voor ingewikkeldere types (zoals `String
 Variabelen van het type `boolean` kunnen slechts twee waarden bevatten: `true` of `false`.
 
 ### 7.2 Primitieve datatype `char`
+
+In variabelen van het type `char` kan je **één** letter of **één** ander teken opslaan. Nooit meer dan één.
+Zo'n teken moet je in het programma tussen apostrofs zetten, bijvoorbeeld de letter **a** als `'a'`.
+
+> De reden dat je apostrofs moet gebruiken, is om aan de compiler duidelijk te maken dat dit een `char` is een geen variabele.
+
+### 7.3 Primitieve datatype `byte`
+
+In een variabele van het type `byte` kun je gehele getallen van -128 t.e.m. 127 bewaren.
+
+> Als we 1 optellen bij 127 komen we terecht bij -128.
+
+### 7.4 Primitieve datatype `short`
+
+In een variabele van het type `short` kun je gehele getallen van **-32768** t.e.m. **32767** bewaren.
+
+### 7.5 Primitieve datatype `int`
+
+In een variabele van het type `int` kun je gehele getallen van **-2 147 483 648** tot **2 147 483 647** bewaren.
+
+### 7.6 Primitieve datatype `long`
+
+In een variabele van het type `long` kun je gehele getallen van **–9 223 372 036 854 775 808** tot **9 223 372 036 854 775 807** bewaren.
+
+### 7.7 Primitieve datatypen: `float` en `double`
+
+In veel gevallen heb je reële getallen nodig, zoals bv. 24.65. Dit zijn **floating-point** getallen. Hier gebruiken we `float` en `double` voor.
+
+- `float`
+  - storing single-precision floating-point
+  - nauwkeurigheid van 6 tot 7 cijfers
+- `double`
+  - storing double-precision floating-point
+  - nauwheurigheid van 15 cijfers
+
+## 8. Klasse en object
+
+### 8.1 Object
+
+Software objecten zijn een weerspiegeling van real-world objecten: ze kunnen **onderscheiden** worden, ze hebben **eigenschappen** en ze hebben **gedrag**.
+
+#### 8.1.1 **Kenmerken van een object**
+
+Elk object heeft een **toestand**, een **gedrag** en een **identiteit**.
+
+- **Toestand** <br/>
+  Objecten hebben bepaalde eigenschappen (bv. kleur, hoogte, breedte,...) dit bepaalt zijn toestand. We noteren deze eigenschappen op een meer gestructureerde manier. - Eigenschappen worden voorgesteld door een **attribuut**.
+  - Elk attribuut heeft een **naam** en een **type**. (bv. `int test`)
+- **Gedrag**
+  - Objecten vragen aan andere objecten om iets te doen
+  - Zo doen objecten beroep op de dienst van andere objecten
+  - De manier van oproepen verschilt van objecttype tot objecttype.
+- **Identiteit** <br/>
+  Ieder object heeft een unieke identeit. Zelfs als gebruiken ze dezelfde klasse. Dit maakt het mogelijk ze onderling te onderscheiden.
+
+#### 8.1.2 **Verantwoordelijkheid van een object**
+
+Een object heeft een duidelijke, wel afgebakende verantwoordelijkheid. Deze wordt gerealiseerd via:
+
+- de toestand, de eigenschappen van het object
+- het gedragen, de diensten die het object aanbiedt
+
+Software heeft een duidelijke, wel afgebakende verantwoordelijkheid, het biedt een wel gedefineerde functionaliteit aan, deze wordt gerealiseerd via
+
+- de create van objecten
+- een complexe interactie tussen objecten
+
+#### 8.1.3 **Relaties tussen objecten**
+
+Tussen objecten bestaan relaties. Deze ontstaan wanneer één of meerdere attributen van een object, verwijzen naar een ander object. Dit is mogelijk door in een klasse eigenschappen op te nemen die als type een andere klasse hebben.
+
+### 8.2 Abstractie
+
+Abstractie verwijst naar het enkel opnemen van de noodzakelijke eigenschappen en/of gedrag en tegelijk het verbergen van irrelevante details. Zo reduceren we de complexiteit van een applicatie en bevorderen we de efficiëntie ervan.
+
+### 8.3 Klasse
+
+Een klasse bevat de omschrijving van de eigenschappen en het gedrag van soortgelijke objecten.
+
+## 9. Voorstelling klasse in UML
+
+**UML**: Unified Modeling Language: Dit is een **modelleertaal** die toelaat OO analyses en ontwerpen te maken. Het is een grafische weergave van kenmerken van een OO systeem. Wij gebruiken Visual Paradigm.
