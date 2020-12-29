@@ -625,3 +625,410 @@ for (Dobbelsteen dobbelsteen : dobbelstenen) {
 
 > TIP: methodes in dezelfde klasse kan je gewoon op naam aanroepen.
 
+## 13. Arrays
+
+Een ArrayList is een dynamische lijst. Dit wil zeggen dat de lijst gemakkelijk kleiner of groter kan gemaakt worden. Bovendien zijn in een ArrayList duplicaten mogelijk, dus hetzelfde gegeven kan meerdere keren voorkomen.
+
+> **Terminologie**
+>
+> - `element`: één gegeven dat in de lijst is opgeborgen
+> - `index`: het volgnummer van het element in de lijst
+> - `lengte of grootte`: het aantal elementen dat de lijst bevat
+>
+> **BELANGRIJK**: de index van een ArrayList begint altijd bij 0!
+
+### 13.1 Methodes `add`, `set`, `get` en `remove`
+
+- `add` dingen toevoegen aan een `ArrayList`
+  - Vb. `colorList.add("magenta");`
+  - Als we nog een kleur toevoegen, zal deze in de lijst komen na de vorige waarde (in dit geval magenta)
+- `add` (met indexwaarde) de waarde zal op die index worden toegevoegd en alle opvolgende waarden zullen opschuiven met 1
+  - Vb. `colorList.add(1, "green");`
+- `set` het instellen van een waarde op een bepaalde index (en ev. vervangen)
+  - Vb. `colorList.set(1, "black");`
+- `get` het verkrijgen van een waarde op een bepaalde index
+  - Vb. `colorList.get(1);`
+- `remove` (met indexnr) het verwijderen van een waarde op een bepaalde index
+  - Vb. `colorList.remove(1);`
+- `remove` (met waarde) het verwijderen van een waarde
+  - Vb. `colorList.remove("black");`
+
+### 13.2 Enhanced for
+
+```Java
+for (parameter : naam_van_de_collectie)
+  statement
+```
+
+Bij iedere iteratie gebeurt het volgende:
+
+- uit de collectie wordt het volgende element genomen
+- dit element wordt bijgehouden in een variabele
+- de body van de lus wordt uitgevoerd op dit element
+
+> Gebruik dus NOOIT een gewone for lus om een array te doorlopen, dit is niet performant!
+
+### 13.3 Eendimensionale arrays
+
+Een array kan net als een ArrayList een reeks gegevens bevatten, maar het is een statische entiteit, wat wil zeggen **dat je op voorhand de grootte moet vastleggen** (je kan deze achteraf niet meer wijzigen).
+
+### 11.3.1 Declaratie en creatie van een array
+
+```Java
+int c[] = new int[12];
+```
+
+Bij het creeëren van een Array vermelden we dus 2 dingen:
+
+- het **type** van de elementen van de array
+- de **grootte** van de array, dus het aantal elementen dat erin kan opgenomen worden
+
+> In bovenstaande voorbeeld zijn er dus 12 elementen (let op: 0 tot en met 11!).
+
+Men kan een array creeëren en direct initialiseren met waarden. Voorbeeld:
+
+```Java
+int[] array = {32, 25, 33, 87, 23, 10}
+```
+
+Als men een array niet initialiseerd, worden alle waarden op 0 ingesteld.
+
+### 11.4 Tweedimensionale arrays
+
+Een tweedimensionele array:
+
+- is net zoals een ArrayList en een eendimensionale array een datastructuur waarin je een zelfde soort gegevens kunt opslaan, zoals waarden van een bepaald primitief type of referenties naar instanties van een bepaalde klasse
+- bestaat uit twee dimensies: rijen en kolommen
+- is eigenlijk een eendimensionale array waarvan elk element zelf ook weer een eendimensionale array is
+- bevat elementen die elk twee indexen hebben
+  - de beide indexen beginnen op nul
+  - bij conventie is de eerste index de rijindex en de tweede dus de kolomindex
+
+Schematische voorstelling van een 3x4-array:
+
+<img src="images/tweedimarray.png" width=600px></img>
+
+Het element `a[2][1]` verwijst naar een element uit de array met **naam a**, **rijindex 2** en **kolomindex 1**.
+
+#### 11.4.1 Declaratie en creatie van een tweedimensionale array
+
+### **Initialisatie door opsomming**
+
+```Java
+int[][] b = { {1,2}, {3,4} };
+```
+
+Resultaat:
+<img src="images/tweedimdec.png" width=600px></img>
+
+> `b[0][0]` bevat de waarde 1, `b[0][1]` bevat de waarde 2
+>
+> `b[1][0]` bevat de waarde 3, `b[1][1]` bevat de waarde 4
+
+Ander voorbeeld:
+
+```Java
+int[][] b = { { 1, 2 }, { 3, 4, 5 } };
+```
+
+<img src="images/tweedimvb.png" width=600px></img>
+
+> `b[0][0]` bevat de waarde 1, `b[0][1]` bevat de waarde 2, `b[0][2]` **bestaat niet**
+>
+> `b[1][0]` bevat de waarde 3, `b[1][1]` bevat de waarde 4, `b[1][2]` bevat de waarde 5
+
+### **Initialisatie na creatie**
+
+We maken eerst de 2-dim array. In onderstaand geval een 3x4 array (3 rijen, 4 kolommen).
+
+```Java
+int[][] b = new int[ 3 ][ 4 ];
+```
+
+> Ieder element wordt automatisch geïnitialiseerd (met waarde 0).
+
+Je kan dan waarden in de tabel stoppen met bv. `b[0][1] = 3` (rij 0, kolom 1).
+
+## 12. Static en non-static methodes
+
+### 12.1 `non-static` methodes
+
+Bij non-static methodes moeten we eerst een object aanmaken voor dat we deze methodes kunnen aanroepen.
+
+### 12.2 `static` methodes
+
+Naast non-static methodes zijn er ook static methodes. Deze voeren een taak uit, onafhankelijk van de inhoud van om het even welk object van een klasse (ze zijn dus voor alle objecten gelijk, denk bv aan een teller die voor alle objecten dezelfde waarde heeft). Een dergelijke methode noemen we dan ook vaak een klassemethode.
+
+Dit doen we vooral om duplicate code te vermijden. Je kan een static methode ook in een andere klasse zetten. Als deze alleen in een klasse staat, waar geen andere methodes in staan, kan je het woordje `static` gewoon weglaten.
+
+### 12.3 Aanroepen van andere methodes vanuit methodes
+
+Je kan makkelijk methodes aanroepen vanuit andere methodes.
+
+Trucje: zijn ze goede vrienden? Dan kan je ze aanroepen op methodenaam zonder iets voor te zetten.
+
+2 methodes zijn goede vrienden als:
+
+- ze in dezelfde klasse staan
+- ze beide static of beide non-static zijn
+
+Is dit niet het geval, moet je bij `non-static` methodes eerst een object aanmaken en bij static methodes de klassenaam er voor zetten.
+
+## 13. Gebruik van methodes uit een bibliotheekklasse (klasse Math)
+
+De klasse Math bevat 2 static attributen, nl. Math.PI en Math.E. Ze zijn **public, final en static** gedeclareerd in de klasse Math.
+
+- `public`: voor iedereen toegankelijk
+- `final`: constnat, de waarde kan niet gewijzigd worden
+- `static`: voor alle objecten dezelfde waren, te gebruiken via klassenaam
+
+## 14. Parameters doorgeven in een methode
+
+### 14.1 Pass by value
+
+Voor primitieve datatypes gebruikt Java pass by value. Dit wil zeggen dat de waarde van de variabele doorgegeven wordt aan de methode die aangeroepen wordt en deze dus niet gewijzigd kan worden.
+
+### 14.2 Pass by reference
+
+Ook voor objecten gebruikt Java eigenlijk **pass by value**. De referentie wordt dus gekopieerd en kan door de angeroepen methode worden gebruikt. Aangezien je met een kopie van de referentie werkt, zal het oorspronkelijk object dus wel gewijzigd kunnen worden. Het enige wat niet lukt en waarvoor je dus een echte pass by reference zou nodig hebben, is om een nieuw object te maken dat dan toegekend wordt aan de referentie.
+
+## 15. Exceptions
+
+Soms kan het zijn dat een gebruiker een verkeerde waarde invoerd, bv. negatief wanneer dit niet mag. We kunnen dan een Exception gooien.
+
+We kunnen een exception makkelijk gooien met
+
+```Java
+throw new exceptiontype();
+```
+
+Bijvoorbeeld:
+
+```Java
+throw new IllegalArgumentException();
+```
+
+> Je kan ook een foutboodschap meegeven met de error. Zo weet de gebruiker wat er precies is foutgegaan. Bv. `IllegalArgumentException("Test");`
+
+Het gooien van een `Exception` zorgt ervoor dat de rest van de code binnen deze methode niet meer uitgevoerd.
+
+## 16. Recursie
+
+Wat is een recursieve methode?
+
+- roept zichzelf op (direct of indirect via een andere methode)
+- kan enkel de basiscase(s) oplossen, m.a.w. roepen we de methode aan met de basis case(s), dan geeft deze een resultaat terug
+- verdeelt een probleem in een basis case en een eenvoudiger probleem indien de methode wordt aangeroepen met een complexer probleem en gaat door met het eenvoudiger probleem verder te verdelen todat het opgelost is
+
+Je gaat eigenlijk van helemaal beneden (vaak 1) via de `return` de waarden terug gaan optellen. Doordat je in de `return` te methode terug oproept blijft hij gaan tot hij zijn waarde heeft bereikt.
+
+## 17. Een aantal extra's
+
+### 17.1 Promotie en casting
+
+Typeconversie (coercion) van argumenten betekent dat je argumenten forceert naar het gepaste type om door te geven aan de methode.
+
+Voorbeeld:
+
+`sqrt()` verwacht een `double`:
+
+```Java
+System.out.println(Math.sqrt(4));
+
+//wordt dus geïnterpreteerd als
+
+System.out.println(Math.sqrt(4.));
+```
+
+Je kan een cast uitvoeren door deze tussen ronde haken voor de waarde te zetten. Bijvoorbeeld:
+
+Om de methode `square(int y)` aan te roepen met een `double` (x = 3.5), gebruiken we volgende aanroep:
+
+```Java
+double res = square((int) x)
+//We downcasten double naar int
+```
+
+## 18. Random getallen genereren
+
+### 18.1 Klasse `Math`
+
+Java kan willekeurige getallen genereren via een methode uit de klasse `Math`: `Math.random()`.
+
+Het zijn **pseudo-random** getallen, want ze worden bepaald door een complexe wiskundige berekening, die gebruik maakt van de actuele tijd.
+
+Voorbeeld: Om in de plaats van een kommegetal uit het interval _[0.0,1.0[_ een waarde uit interval _[0.0,6.0[_ te krijgen gebruiken we de volgende expressie:
+
+```Java
+Math.random() * 6
+```
+
+We brengen het interval van waarden op schaal en het cijfer **6** noemen we de **schaalfactor**.
+
+We krijgen nu wel nog steeds decimale waarden, wanneer we geen kommagetallen willen kunnen we het resultaat casten naar een `integer`.
+
+```Java
+(int) (Math.random() * 6)
+```
+
+Tenslotte willen we een resultaat dat minimum 1 en maximum 6 bedraagt:
+
+```Java
+int dobbel = (int) (Math.random() * 6) + 1
+```
+
+### 18.2 Klasse `Random`
+
+Er zijn in Java ook 2 klasses die toelaten om willekeurige getallen te bepalen: klasse **Random** en klasse **SecureRandom**. Het verschil tussen de 2 is dat **SecureRandom** minder voorspelbare getallen genereert doordat het een andere random generator gebruikt.
+
+### 18.3 Klasse `SecureRandom`
+
+Klasse `SecureRandom` kan gebruikt worden om randomwaarden te genereren van het type `boolean`, `byte`, `float`, `double`, `int` en `long`.
+
+Object maken van klasse:
+
+```Java
+SecureRandom randomnr = new SecureRandom();
+```
+
+Voorbeeld:
+
+```Java
+int randomValue = randomnr.nextInt();
+```
+
+Genereert een random waarde in het bereik van een `Integer` (tussen –2.147.483.648 en 2.147.483.647).
+
+Om een geheel getal tussen 1 en 6 (beide inbegrepen) te verkrijgen, gebruiken we volgende formule:
+
+```Java
+int randomValue = 1 + randomnr.nextInt(6);
+```
+
+## 19. Enumeratie
+
+Enumeration is een speciaal soort klasse, die gebruikt wordt om een set van constanten, die unieke identifiers zijn, te definiëren.
+
+Een enum-type is een referentietype (zoals een klasse) dat impliciet final is, vermits het constanten declareert, die niet wijzigbaar mogen zijn. De enum-constanten zijn ook impliciet static.
+
+Objecten van een enum-type met new creëren, leidt tot een compilatiefout. Het gaat hier immers om een opsomming van elementen, waar geen nieuwe elementen aan kunnen toegevoegd worden.
+
+> Enum waarden zouden altijd hoofdletters moeten zijn
+
+Voorbeeld:
+
+```Java
+package utils;
+
+public enum Dag {
+  MAANDAG,DINSDAG,WOENSDAG,DONDERDAG,VRIJDAG,ZATERDAG,ZONDAG;
+}
+```
+
+Enumeraties worden vaak gebruikt bij een `switch case`. Voorbeeld:
+
+```Java
+enum Level {
+  LOW,
+  MEDIUM,
+  HIGH
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Level myVar = Level.MEDIUM;
+
+    switch(myVar) {
+      case LOW:
+        System.out.println("Low level");
+        break;
+      case MEDIUM:
+         System.out.println("Medium level");
+        break;
+      case HIGH:
+        System.out.println("High level");
+        break;
+    }
+  }
+}
+```
+
+> Je kan door een lijst van enums ook itereren met een `enhanced for`. Voorbeeld:
+
+```Java
+for (Dag d : Dag.values()) {
+System.out.println(d.name()); // name() is altijd beschikbaar! // of: System.out.println(d);
+}
+```
+
+> **Wanneer gebruiken we enums eigenlijk?**
+>
+> We gebruiken enumeratie voor waarden te definiëren die nooit gaan veranderen. Denk maar aan dagen, kleuren, kaart deck,...
+
+## 20. Scope van variabelen
+
+In dit onderdeel bespreken we het bereik van variabelen (tot waar je deze kan gebruiken van wanneer ze gedeclareerd zijn).
+
+Een paar basisregels:
+
+- Een parameter heeft als bereik de body van de methode waarin de parameter gedeclareerd werd
+- Een lokale variabele is "bereikbaar" vanaf het punt waar ze gedeclareerd werd tot aan het einde van dit blok
+- Een lokale variabele die gedeclareerd wordt in het initialisatiegedeelte van de header van een `for-lus` is bereikbaar in de rest van die header én in de body van de `for-lus`.
+- Een methode en een attribuut hebben als bereik de volledige body van de klasse. Hierdoor kunnen de methodes in een klasse de attributen en andere methodes gebruiken!
+
+Als men in het begin van een klasse een globale variabele declareerd, en later in een methode nog eens een variabele met dezelfde naam, zal de variabele in de methode de globale variabele overschaduwen (in de methode wordt de lokale variabele gebruikt).
+
+## 21. `final` attribuut
+
+```Java
+private final int aantal;
+```
+
+Betekenis van het keyword **final**: eens het attribuut een waarde heeft gekregen, kan deze waarde niet meer wijzigen. Het is dus een constante.
+
+> `final` attributen kunnen hun waarde **ENKEL** krijgen bij initialisatie OF in de constructoren. **OP GEEN ENKELE ANDERE PLEK!**
+
+## 22. `BigDecimal` voor nauwkeurige berekeningen
+
+Bij berekeningen met `double` en `float` kunnen er snel afrondingsfouten optreden. Als de berekening accuraat moet zijn kan je gebruik maken van `BigDecimal`.
+
+Voorbeeld:
+
+```Java
+BigDecimal rate = BigDecimal.valueOf(0.05);
+```
+
+Met bovenstaande lijn code zetten we de waarde van `rate` op 0.05.
+
+Berekeningen zoals delen, vermenigvuldigen,... gebeuren niet meer met de standaard operatoren, maar met methodes die we oproepen uit de BigDecimal klas. Voorbeeld:
+
+```Java
+BigDecimal test1 = BigDecimal.valueOf(1.6);
+
+test1 = test1.multiply(BigDecimal.valueOf(2));
+
+System.out.println(test1.toString());
+```
+
+### 22.1 `NumberFormat`
+
+`NumberFormat` laat toe om getallen te formatteren. In dit geval formatteren we het getal als een bedrag volgens de landinstellingen van het toestel waarop de software uitgevoerd wordt. (België)
+
+```Java
+NumberFormat.getCurrencyInstance().format(amount);
+```
+
+## 23. `static` klassevariabelen
+
+Een static klassevariabele bestaat maar één keer voor alle objecten van die klasse. De objecten delen de static variabele. Je kan dus bv. waarden optellen bij deze variabelen en deze zal dan geüpdate worden voor alle objecten.
+
+Mogelijk gebruikt:
+
+- het aantal objecten bijhouden dat reeds van de klasse aangemaakt is: het is niet nodig dat ieder object zijn eigen kopie heeft van deze informatie, maar dit soort informatie mag "centraal" in de klasse bijgehouden worden
+- de aangroeiïnterest op een spaarrekening: het is de bedoeling dat ALLE klanten van de bank DEZELFDE interestvoet krijgen
+
+Voordelen van gebruik:
+
+- minder geheugenruimte nodig bij gedeelde variabelen
+- minder tijd nodig om de variabele te wijzigen
+- je kan waarde opvragen in een andere klas zonder dat je een getter nodig hebt
