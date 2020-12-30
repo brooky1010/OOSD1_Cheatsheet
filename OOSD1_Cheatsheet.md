@@ -1032,3 +1032,231 @@ Voordelen van gebruik:
 - minder geheugenruimte nodig bij gedeelde variabelen
 - minder tijd nodig om de variabele te wijzigen
 - je kan waarde opvragen in een andere klas zonder dat je een getter nodig hebt
+
+## 24. De 4 pijlers van OO
+
+Object georiënteerd ontwerpen/programmeren steunt op 4 grote pijlers:
+
+1. Encapsulation (inkapseling)
+2. Abstraction (abstractie)
+3. Inhertitance (overerving)
+4. Polymorfism (polymorfisme)
+
+### 24.1 Inkapseling
+
+Het wijzigen van de interne opbouw van een abstract datatype mag weinig of geen invloed hebben op de rest van de programmatuur.
+
+Hoe wordt dit gerealiseerd?
+
+De methodes die manipulaties uitvoeren op de attributen worden bij elkaar geplaatst en gekoppeld aan dat type. M.a.w., de implementatiedetails zitten verborgen.
+
+<img src="images/inkapseling.png" width=600px>
+
+### 24.2 Abstractie
+
+Elke klasse bevat attributen (instantievariabelen) én een aantal methodes, die de attributen kunnen manipuleren. Een klasse is een specificatie voor objecten. Een object is een instantie van een klasse die gemaakt is volgens deze specificatie.
+
+BESLUIT: de focus in Java ligt op het maken van objecten ipv op het schrijvenvan methodes zoals in procedurele programmeertalen.
+
+### 24.3 Overerving
+
+Overerving is een mechanisme waarbij software opnieuw wordt gebruikt: nieuwe klassen worden gecreëerd vertrekkende van bestaande klassen, waarbij de attribbuten en methodes worden geërfd van de superklasse en uitgebreid met nieuwe mogelijkheden, noodzakelijk voor de nieuwe klasse die subklassen noemt.
+
+<img src="images/overerving.png" width=200px>
+
+Klassen hebben twee soorten afstammelingen:
+
+- Instanties (of objecten) van een klasse
+- Subklassen
+
+Klassen kunnen
+
+- **Concreet** zijn, wat betekent dat er instanties (objecten) van die klasse kunnen bestaan
+- **Abstract** zijn, wat betekent dat ze geen instanties kunnen hebben
+- Een **interface** klasse zijn, deze bestaan enkel uit operaties. Ze beschrijven een contract (gedrag).
+
+Voorbeeld:
+
+<img src="images/vbkathond.png" width=500px>
+
+We bekijken bovenstaande 2 klasses. We zien dat ze veel overeenkomstige methodes hebben (=veel duplicate code).
+
+Om dubbele code te vermijden passen we **generalisatie** toe: we maken een aparte klasse _Huisdier_ die de gemeenschappelijke kenmerken bevat. Deze klasse heet een superklasse.
+
+```Java
+public class Hond extends Huisdier {
+  public Hond(String naam) {
+    super(naam);
+  }
+}
+```
+
+Bovenstaande code is een voorbeeld van een subklasse. Omdat het een subklasse is, moeten we de superklasse "extenden" met `extends`. In de constructor van de subklasse moeten we ook de constructor van de superklasse aanroepen, dit doen we met `super()`.
+
+> Om methodes uit de superklasse vanuit de subklasse aan te roepen, kunnen we gebruik maken van de prefix `super`.
+
+**Uitbreiden en specialiseren**:
+
+**Uitbreiden** gebeurt door nieuwe attributen en/of associaties en/of methodes toe te veogen.
+
+**Specialiseren** gebeurt door de implementatie van een methode in een subklasse aan te passen. We noemen dit **overriden** van een methode. <br/>
+Wanneer je gebruikt maakt van specialisatie, betekent dit dat je de methode van de superklasse overschrijft. Daarom moet de subklasse altijd een methode declareren met dezelfde signatuur (header) als de methode van de superklasse. Omdat er dan een conflict zou optreden, zetten we boven de methode in de subklasse `@Override`. Dit betekent dat die de methode uit de superklasse gaat overschaduwen.
+
+### 24.4 Polymorfisme
+
+Het polymorfisme is het mogelijk om systemen te ontwerpen en te implementeren die eenvoudig uitbreidbaar zijn. Klassen die nog niet bestaan tijdens de ontwikkeling van het programma kunnen mits kleine of geen wijzigingen toegevoegd worden aan het generieke deel van het programma op voorwaarde dat deze klassen deel uitmaken van de hiërarchie.
+
+**Wat is nu polymorfisme concreet?**
+
+We gebruiken een voorbeeld om dit beter te begrijpen:
+
+We hebben eerder instanties gemaakt van klasses als volgt:
+
+```Java
+Huisdier hd = new Huisdier("Nijntje");
+Kat k = new Kat("Musti");
+Hond h = new Hond("Rintje");
+Duif d = new Duif("Wittekop", 20201234567L);
+```
+
+Bovenstaande code werkt perfect, maar toch kunnen we dit beter schrijven:
+
+```Java
+Huisdier dierVanJan, dierVanEls, dierVanTante, dierVanOpa;
+//Alle variabelen hebben nu type 'Huisdier'
+dierVanJan = new Huisdier("Nijntje");
+dierVanEls = new Kat("Musti");
+dierVanTante = new Hond("Rintje");
+dierVanOpa = new Duif("Wittekop", 20201234567L);
+```
+
+Omdat alle variabelen het type `Huisdier` hebben, kan je er gewoon een object van een subklasse aan toekennen. Je kan dit gaandeweg nog aanpassen:
+
+```Java
+Huisdier dierVanOpa = new Duif("Wittekop", 20201234567L);
+//Je kan vanalles doen met het duif object
+dierVanOpa = new Kat("Garfield");
+//Alles wat je nu nog doet met het object dierVanOpa heeft betrekking op een Kat.
+```
+
+Volgens bovenstaande code heeft opa zijn oorspronkelijke huisdier, dat een duif was, dus niet langer in zijn bezit, maar heeft hij in de plaats een kat genomen.
+
+Opgelet:
+Stel, men heeft een huisdierobject dat een Kat is.
+
+```Java
+Huisdier dierVanEls = new Kat("Musti");
+```
+
+Als we op `dierVanEls` de `spin()` methode willen aanroepen (die in de subklasse Kat zit), gaat de compiler deze niet vinden. We zullen eerst moeten downcasten naar en Kat object. Voorbeeld:
+
+```Java
+Kat katVanEls = (Kat) dierVanEls;
+```
+
+Nu kunnen we met de variabele `katVanEls` de `spin()` methode aanroepen.
+
+**Waarom polymorfisme?**
+
+Als je ieder huisdier zou declareren als bv. Kat of Hond, zou je niet alle objecten in 1 ArrayList kunnen bewaren. Door ze te declareren als
+
+```Java
+Huisdier kat = new Kat("Garfield");
+```
+
+kunnen we alle objecten in 1 ArrayList bewaren met datatype `Huisdier`. Hebben we dan een methode nodig uit het Kat datatype, kunnen we deze aanroepen door eerst te downcasten.
+
+## 25. Drielagenmodel
+
+In Java code gebruiken we 3 verschillende lagen om een overzicht te behouden tussen verschillende types van processen binnenin je project. We onderscheiden de volgende lagen:
+
+- klassen die **de communicatie met de gebruiker** verzorgen (presentatielaag)
+- klassen die **het hart van de applicatie** doen kloppen (domeinlaag)
+- klassen die **de communicatie met de databank** kunnen verzorgen (persistentielaag)
+
+## 26. Unit testen
+
+Unit testen is een methode om softwaremodules of stukjes broncode (units) afzonderlijk te testen. Wij gebruiken jUnit om onze unit testen uit te voeren.
+
+### 26.1 Triple-A patroon
+
+1. **A**rrange: klaarzetten van de test (variabelen,...)
+2. **A**ct: het uitvoeren van de te testen methode
+3. **A**ssert: nagaan of de test correct is verlopen
+
+### 26.2 Opbouw test
+
+We zetten onze testklasse's in een aparte package: testen.
+Geef je klasses duidelijke namen, zoals bv. `BarTest.java`.
+
+We bekijken hieronder een voorbeeld:
+
+```Java
+@Test
+	public void magAlcoholDrinken_teJong_retourneertFalse() {
+		//ARRANGE
+		Bar b = new Bar();
+		int leeftijd = 10;
+		//ACT
+		boolean resultaat = b.magAlcoholDrinken(leeftijd);
+		//ASSERT
+		Assertions.assertFalse(resultaat);
+	}
+```
+
+De opbouw is ongeveer altijd hetzelfde:
+
+- `@Test` aangeven dat onderliggende methode een test is
+- Arrange gedeelte
+  - Object en variabelen aanmaken (dit kunnen we ook anders)
+- Act gedeelte
+  - Methode uit klasse oproepen en antwoord in een variabele steken
+- Assert gedeelte
+  - Het antwoord controleren met het verwachte antwoord
+
+In plaats van steeds opnieuw een object aan te maken voor iedere test, kan je ook `@BeforeEach` gebruiken.
+Voorbeeld:
+
+```Java
+private Bar b;
+@BeforeEach
+	public void before() {
+		b = new Bar();
+	}
+```
+
+Nu kunnen we gewoon de variabele `b` aanroepen in iedere test.
+
+> We maken Testen aan na ontwerp en VOOR het schrijven van de code!
+
+We hebben verschillende type assertions, een kleine handgreep:
+
+> - `assertEquals(expected, actual)`
+> - `assertEquals(expected, actual, delta)`
+>   - delta is maximale afwijking (bij double en float)
+> - `assertFalse(boolean conditie)`
+> - `assertFalse(boolean conditie, String message`
+> - ...
+
+### 26.3 Geparametriseerde testen
+
+We kunnen meerdere parameters tegelijk testen met een parameterized test.
+
+```Java
+@ParameterizedTest
+@NullAndEmptySource
+@ValueSource (strings = {"    ", "a", "*", "S", ""})
+void setTitel_ongeldigeWaarde_exception(String titel) {
+
+		//Arrange
+		//Hoofdstuk h = new Hoofdstuk();
+
+		//Act & assert
+		Assertions.assertThrows(IllegalArgumentException.class, () -> h.setTitel(titel));
+	}
+```
+
+- `@ParameterizedTest` geparameteriseerde test
+- `@NullAndEmptySource` testen op waarde `null` en lege waarde
+- `@ValueSource` de waardenreeks waar mee getest zal worden
+- `() -> h.setTitel(titel)` waar waarden zullen doorgegeven worden (methode met `() ->` er voor)
